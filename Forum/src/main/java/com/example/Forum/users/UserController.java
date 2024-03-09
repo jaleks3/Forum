@@ -1,10 +1,7 @@
 package com.example.Forum.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,14 +14,34 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+    // Get all users
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getUsers();
     }
 
+    // Get a single user by id
     @GetMapping(path = "{userId}")
-    User getUser(@PathVariable Long userId){
-        return userService.GetUserById(userId);
+    public User getUser(@PathVariable Long userId) {
+        return userService.getUserById(userId);
     }
 
+    // Create a new user
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    // Update an existing user
+    @PutMapping(path = "{userId}")
+    public User updateUser(@PathVariable Long userId, @RequestBody User newUser) {
+        return userService.updateUser(userId, newUser);
+    }
+
+    // Delete a user by id
+    @DeleteMapping(path = "{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+    }
 }
