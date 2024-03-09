@@ -3,27 +3,33 @@ package com.example.Forum.users;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "forum_user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence"
+    )
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false, unique = true)
+    private String email;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
-    private String createdAt;
-
-
     public User() {
 
     }
-    public User(String username, String password, String createdAt) {
+    public User(String username, String email, String password) {
         this.username = username;
+        this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
     }
 
     // getters and setters
@@ -33,7 +39,6 @@ public class User {
     public Long getId() {
         return id;
     }
-
     public String getUsername() {
         return username;
     }
@@ -41,7 +46,13 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getPassword() {
         return password;
     }
@@ -50,11 +61,4 @@ public class User {
         this.password = password;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 }
