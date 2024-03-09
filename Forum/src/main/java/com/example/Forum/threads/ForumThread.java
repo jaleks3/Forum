@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "forum_thread")
-public class Thread {
+public class ForumThread {
 
     @Id
     @SequenceGenerator(
@@ -28,9 +28,9 @@ public class Thread {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Thread() {
+    public ForumThread() {
     }
-    public Thread(String title, LocalDateTime creationDate, User user) {
+    public ForumThread(String title, LocalDateTime creationDate, User user) {
         this.title = title;
         this.creationDate = creationDate;
         this.user = user;
